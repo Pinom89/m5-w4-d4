@@ -1,31 +1,42 @@
-import { render, screen, fireEvent, waitFor} from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, getAllByRole, findAllByRole} from '@testing-library/react';
 import App from './App';
 import Welcome from './components/Welcome';
 import AllTheBooks from './components/AllTheBooks';
 
+// NB il file di App.test.js è stato messo esternamente al progetto in quanto è stato effettuato sulla base del progetto scritto dal Prof Umberto Emanuele
+// TUTTI i test sono funzionanti e sono state inserite delle alternative.
+// per testare questo file spostarlo nel progetto argomentato dal Prof.
 
-
-
-
+/*
+// test 1
 test('Testo presente in Welcome', () => {
     render(<Welcome />);
     const linkElement = screen.getByText(/App React Epicode/i);
     expect(linkElement).toBeInTheDocument();
 });
+*/
 
+
+/*
+// test 2
 test('conteggio elementi eseguita', async() => {
     render(<App />);
     const conteggio = await screen.findAllByTestId('pippo');
     expect(conteggio).toHaveLength(150);
 });
+*/
 
-
+/*
+// test 2 alternativa
 test('verifica n. di card', () => {
   render(<App />);
   const cardTotal = screen.getAllByTestId('pippo');
   expect(cardTotal).toHaveLength(150);
 })
+*/
 
+/*
+// test 3
 test('commentArea si visualizza', async() => {
     render(<App />);
     const buttondetails = await screen.findAllByText('Book Details');
@@ -33,9 +44,10 @@ test('commentArea si visualizza', async() => {
     const comment = await screen.findByPlaceholderText('Inserisci qui il tuo commento');
     expect(comment).toBeInTheDocument();
 });
-
-
-
+*/
+ 
+/*
+// test 4
 test("filtra i libri in base alla ricerca", async () => {
   // Renderizziamo il componente App
   render(<App />);
@@ -58,41 +70,10 @@ test("filtra i libri in base alla ricerca", async () => {
    
   });
 });
-/*
-
-test("verifica lo stile del bordo rosso quando il libro è selezionato", async () => {
-  render(<App />); // Renderizza il componente App che contiene SingleBook
-
-  // Attendi che l'elemento con data-testid 'pippo' sia presente nel DOM
-  const cardElement = await  waitFor(() => {screen.findByTestId('pippo')});
-
-  // Simula il click sull'elemento Card per selezionarlo
-  fireEvent.click(cardElement);
-
-  // Attendi che lo stile del bordo rosso venga applicato
-  await waitFor(() => {
-    expect(cardElement).toHaveStyle('border: 2px solid red'); // Verifica che lo stile esatto corrisponda
-  });
-});
-
-
-
-test("verifica lo stile del bordo rosso quando il libro è selezionato", async () => {
-  render(<App />); // Renderizza il componente App che contiene SingleBook
-
-  // Attendi che l'elemento con data-testid 'pippo' sia presente nel DOM
-  const cardElement = await screen.findAllByTestId('pippo');
-
-  // Simula il click sull'elemento Card per selezionarlo
-  fireEvent.click(cardElement);
-
-  // Attendi che lo stile del bordo rosso venga applicato
-  await waitFor(() => {
-    expect(cardElement).toHaveStyle('border: 2px solid red'); // Verifica che lo stile esatto corrisponda
-  });
-});
 */
 
+/*
+test 5
 test('verifica lo stile del bordo rosso quando il libro è selezionato', async () => {
   render(<App />); // Renderizza il componente App che contiene SingleBook
 
@@ -107,3 +88,79 @@ test('verifica lo stile del bordo rosso quando il libro è selezionato', async (
   // Verifica che la classe 'selezionata' sia presente sull'elemento
   expect(element).toHaveClass('selezionata');
 });
+
+*/
+
+/*
+// test 6 
+test('verifica stato del bordo rosso', async () => {
+  render(<App />); // Renderizza il componente App che contiene SingleBook
+
+  // Attendi che gli elementi con data-testid 'pippo' siano presenti nel DOM
+  const idElements = await screen.findAllByTestId('pippo');
+ 
+  const elementUno = idElements[0];
+  const elementDue = idElements[1];
+
+  // Simulo il click sul primo elemento Card per selezionarlo
+  fireEvent.click(elementUno);
+
+  // Verifica che la classe 'selezionata' sia presente sull'elemento
+  expect(elementUno).toHaveClass('selezionata');
+
+  // Simulo il click sul secondo elemento Card per selezionarlo
+  fireEvent.click(elementDue);
+
+  expect(elementUno).not.toHaveClass('selezionata');
+  expect(elementDue).toHaveClass('selezionata');
+
+});
+
+*/
+
+
+/*
+//test 7
+
+test ('non è presente SingleComment', () => {
+  render(<App />);
+  const comment = screen.queryByTestId('single comment');
+  expect(comment).toBeNull();
+})
+
+*/
+
+/*
+// test 7 alternativa
+test ('non è presente SingleComment', () => {
+  render(<App />);
+  const comment = screen.queryAllByTestId('single comment');
+  expect(comment).toHaveLength(0);
+})
+*/
+
+
+/*
+// test 8
+test('i commenti sono presenti', async() => {
+  render(<App />);
+  const buttons = await screen.findAllByRole('button', {name: /Book Details/i });
+  const FirstButton = buttons[0];
+  fireEvent.click(FirstButton);
+  const PrimoComment = await screen.findAllByTestId('single comment');
+  expect(PrimoComment[0]).toBeInTheDocument();
+})
+  */
+
+
+// test 8 alternativa
+test('i commenti sono presenti', async() => {
+  render(<App />);
+  const buttons =  screen.getAllByRole('button', {name: /Book Details/i });
+  const FirstButton = buttons[0];
+  fireEvent.click(FirstButton);
+  const PrimoComment = await screen.findAllByTestId('single comment');
+  expect(PrimoComment).toHaveLength(3);
+})
+
+
