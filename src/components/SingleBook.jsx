@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import {
     MDBCard,
@@ -15,20 +14,23 @@ import {
   import { useNavigate } from "react-router-dom";
   import './SingleBook.css';
 
-export default  function SingleBook({book, selected, setSelected} ) {
+export default  function datiSingleBook({book, selected, setSelected} ) {
 
     const navigate = useNavigate();
-let [theme] = useContext(ThemeContext); // richiamo il paramento theme senza setTheme dal context senza passare più le props in  quanto la funzione
-// è stata già creata nella navbar.jsx
+let [theme] = useContext(ThemeContext); 
+    // richiamo il paramento theme senza setTheme dal context senza passare più le props in  quanto la funzione
+    // è stata già creata nella navbar.jsx
 
 
     return (
         <MDBCol sm='4'  >
             <MDBCard  background={theme} className='mt-2 mb-2 misura-card' style={ selected===book.asin ? {border: '3px solid red'} : {border:'none'}} onClick={() => setSelected(book.asin, console.log(selected))} >
                 <MDBRipple rippleColor='light' rippleTag='div' className='bg-image hover-overlay'>
-                    <MDBCardImage src={book.img} fluid alt={book.title} />
+                   <div className='containerimmage'>
+                    <MDBCardImage className='sizeimmage' imgfluid src={book.img}  alt={book.title} />
+                   </div>
                 <b>
-                    <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}></div>
+                   <div className='mask' style={{ backgroundColor: 'rgba(251, 251, 251, 0.15)' }}></div>
                 </b>    
                 </MDBRipple>
                 <MDBCardBody data-testid='pippo' >
