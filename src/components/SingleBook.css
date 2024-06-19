@@ -1,9 +1,26 @@
 .misura-card{
- max-height: 500px;
- max-width: 380px;
+    
+    height: 400px; /* Imposta un'altezza fissa per le card */
+    width: 290px; /* Imposta una larghezza fissa per le card */
+    display: flex; /* Utilizza il flexbox per allineare i contenuti */
+    flex-direction: column; /* Disponi gli elementi verticalmente */
 }
 
 .img-fluid{
     
     min-height: 200px;
+}
+
+.sizeimmage{
+    object-fit: cover;
+    width: 100%;
+    height: 200px; 
+    
+     
+}
+
+.containerimmage{ 
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
 }
